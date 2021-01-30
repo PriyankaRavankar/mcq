@@ -141,24 +141,24 @@ border-radius: 0px;
 <body>
 <div class="main">
 <p class="sign" align="center">Sign Up</p>
-<form action="<?php echo base_url('index.php/auth/post_register') ?>" method="post" accept-charset="utf-8">
-<input class="un " type="text" align="center" name="first_name" placeholder="First name">
+<form id="registerform" action="<?php echo base_url('index.php/auth/post_register') ?>" method="post" accept-charset="utf-8">
+<input class="un " type="text" align="center" name="first_name" placeholder="First name" onkeypress="return isAlphabet(event,this);" required>
 <?php echo form_error('first_name'); ?>   
-<input class="un " type="text" align="center" name="last_name" placeholder="Last name">
+<input class="un " type="text" align="center" name="last_name" placeholder="Last name" onkeypress="return isAlphabet(event,this);" required>
 <?php echo form_error('last_name'); ?>  
-<input class="un " type="text" align="center" name="mobile" placeholder="Mobile number" maxlength="10">
+<input class="un " type="text" align="center" name="mobile" pattern="[7-9]{1}[0-9]{9}" title="Mobile No should start with 7 or 8 or 9" placeholder="Mobile number" onkeypress="return isNumber(event);" minlength="10" maxlength="10" required>
 <?php echo form_error('mobile'); ?> 
-<input class="un " type="text" align="center" name="email" placeholder="Email">
+<input class="un " type="email" align="center" name="email" placeholder="Email" required>
 <?php echo form_error('email'); ?> 
-<input class="pass" type="password" align="center" name="password" placeholder="Password">
+<input class="pass" type="password" align="center" name="password" placeholder="Password" minlength="6" maxlength="8" required>
 <?php echo form_error('password'); ?>
 
 
-<input class="un " type="text" align="center" name="city" placeholder="City">
+<input class="un " type="text" align="center" name="city" placeholder="City" onkeypress="return isAlphabet(event,this);" required>
 <?php echo form_error('city'); ?>  
 
 <div  align="center" >
-<input  type="radio"   name="user_type" value="admin"> <label for="admin">Admin</label>
+<input  type="radio"   name="user_type" value="admin" required> <label for="admin">Admin</label>
 <input  type="radio"  name="user_type" value="guest"> <label for="guest">Guest</label><br>
 </div><br>
 <?php echo form_error('user_type'); ?> 
@@ -167,3 +167,36 @@ border-radius: 0px;
 </div>
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script type="text/javascript">
+	
+	 
+    //Allow Only Alphabates
+
+    function isAlphabet(evt, t) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if(charCode == 37 || charCode == 39){
+            return true;
+        }
+        if((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8 || charCode == 32 || charCode == 16 || charCode == 9){
+            return true;
+        }
+        return false;
+    }
+    //Allow Only Numbers
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if(charCode == 37 || charCode == 39){
+            return true;
+        }
+        //return false;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>
